@@ -46,6 +46,3 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
-        var sync = $firebase(fb.child("messages/" + fbAuth.uid));
-        var messagesArray = sync.$asArray();
-        $scope.messages = messagesArray;

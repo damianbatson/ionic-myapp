@@ -79,8 +79,12 @@ $scope.list = function() {
       // fb = new Firebase('https://prototype-firebase.firebaseio.com/');
         // var fbAuth = $firebaseAuth(fb);
         var sync = $firebase(fb.child("messages/" + fbAuth.uid));
-        var syncArray = sync.$asObject();
-        syncArray.$bindTo($scope, "data");
+        var syncObject  = sync.$asObject();
+        syncObject .$bindTo($scope, "data");
+
+        // var sync = $firebase(fb.child("messages/" + fbAuth.uid));
+        // var messagesArray = sync.$asArray();
+        // $scope.messages = messagesArray;
     }
 }
  
@@ -92,7 +96,7 @@ $scope.create = function() {
     })
     .then(function(result) {
         if(result !== "") {
-            if($scope.data.hasOwnProperty("messages/"+fbAuth.uid) !== true) {
+            if($scope.data.hasOwnProperty("messages/"+fbAuth.uid) !== true) { 
                 $scope.data.messages = [];
             }
             $scope.data.messages.push({text: result, exer01: result});
