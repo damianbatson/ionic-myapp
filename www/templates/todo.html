@@ -1,14 +1,40 @@
 <ion-view title="Todo" ng-init="list()">
     <ion-nav-buttons side="right">
-        <button class="right button button-icon icon ion-plus" ng-click="create()"></button>
+        <button class="right button button-icon icon ion-plus" ng-click="create(text);text = null;"></button>
     </ion-nav-buttons>
         <ion-nav-buttons side="left">
         <button class="right button button-icon icon ion-log-out" ng-click="logout()"></button>
     </ion-nav-buttons>
     <ion-content>
-    <h1>messages</h1>
+        <div class="padding-left padding-top padding-right">
+            <h1>Messages</h1>
+        </div>
+                <label>
+            <span>Name:</span>
+            <input type="text" name="name" ng-model="data.name"/>
+        </label>
+
+        <label>
+            <span>Email:</span>
+            <input type="text" name="name" ng-model="data.email"/>
+        </label>
+
+        <label>
+            <span>Weight:</span>
+            <input type="text" name="name" ng-model="data.weight"/>
+        </label>
+
+        <label>
+            <span>Cardio:</span>
+            <input type="text" name="name" ng-model="data.cardio"/>
+        </label>
+
+        <label>
+            <span>ExerciseOne:</span>
+            <input type="text" name="name" ng-model="data.exone"/>
+        </label>
         <div class="list">
-            <div ng-repeat="message in data.messages" class="item">
+            <div ng-repeat="message in messages" class="item">
                 {{message.text}}
                 {{message.exer01}}
             </div>

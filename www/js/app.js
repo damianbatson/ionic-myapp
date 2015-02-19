@@ -78,31 +78,33 @@ $scope.list = function() {
     if(fbAuth) {
       // fb = new Firebase('https://prototype-firebase.firebaseio.com/');
         // var fbAuth = $firebaseAuth(fb);
-        var sync = $firebase(fb.child("messages/" + fbAuth.uid));
+        var sync = $firebase(fb.child("users/" + fbAuth.uid));
         var syncObject = sync.$asObject(["users", fbAuth.uid]);
         syncObject .$bindTo($scope, "data");
 
-        // var sync = $firebase(fb.child("messages/" + fbAuth.uid));
-        // var messagesArray = sync.$asArray();
-        // $scope.messages = messagesArray;
+        var sync = $firebase(fb.child("messages/" + fbAuth.uid));
+        var messagesArray = sync.$asArray(["users", fbAuth.uid]);
+        $scope.messages = messagesArray;
     }
 }
  
-$scope.create = function() {
+$scope.create = function(text) {
     $ionicPopup.prompt({
         title: 'Enter a new TODO item',
         inputType: 'text',
-        inputType2: 'exer01'
+        // inputType2: 'exer01'
     })
-    .then(function(result) {
-        if(result !== "") {
-            if($scope.data.hasOwnProperty("messages/"+fbAuth.uid) !== true) { 
-                $scope.data.messages = [];
-            }
-            $scope.data.messages.push({text: result, exer01: result});
-        } else {
-            console.log("Action not completed");
-        }
+    .then(function(text) {
+
+        $scope.messages.$add({text:text});
+        // if(result !== "") {
+        //     if($scope.data.hasOwnProperty("messages/"+fbAuth.uid) !== true) { 
+        //         $scope.data.messages = [];
+        //     }
+        //     $scope.data.messages.push({text: result, exer01: result});
+        // } else {
+        //     console.log("Action not completed");
+        // }
     });
 }
 
