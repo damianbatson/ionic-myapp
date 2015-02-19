@@ -69,7 +69,7 @@ exampleapp.controller("LoginController", function($scope, $firebaseAuth, $locati
  
 });
 
-exampleapp.controller('TodoController', function($scope, $firebase, $firebaseAuth, $ionicPopup) {
+exampleapp.controller('TodoController', function($scope, $firebase, $firebaseAuth, $ionicPopup, $location) {
  
 $scope.list = function() {
   fb = new Firebase('https://prototype-firebase.firebaseio.com/');
@@ -79,7 +79,7 @@ $scope.list = function() {
       // fb = new Firebase('https://prototype-firebase.firebaseio.com/');
         // var fbAuth = $firebaseAuth(fb);
         var sync = $firebase(fb.child("messages/" + fbAuth.uid));
-        var syncObject  = sync.$asObject();
+        var syncObject = sync.$asObject(["messages", fbAuth.uid]);
         syncObject .$bindTo($scope, "data");
 
         // var sync = $firebase(fb.child("messages/" + fbAuth.uid));
@@ -104,6 +104,16 @@ $scope.create = function() {
             console.log("Action not completed");
         }
     });
+}
+
+$scope.logout = function(){
+    // var sync = $firebase(fb.child("messages/" + fbAuth.uid));
+    // var data = sync.$asObject(["messages", fbAuth.uid]);
+    // $scope.data.$destroy();
+    var fbAuth = $firebaseAuth(fb);
+    fbAuth.$unauth();
+    $location.path("/login");
+    // });
 }
 
  
