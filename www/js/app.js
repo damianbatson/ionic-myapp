@@ -79,7 +79,7 @@ $scope.list = function() {
       // fb = new Firebase('https://prototype-firebase.firebaseio.com/');
         // var fbAuth = $firebaseAuth(fb);
         var sync = $firebase(fb.child("messages/" + fbAuth.uid));
-        var syncObject = sync.$asObject(["messages", fbAuth.uid]);
+        var syncObject = sync.$asObject(["users", fbAuth.uid]);
         syncObject .$bindTo($scope, "data");
 
         // var sync = $firebase(fb.child("messages/" + fbAuth.uid));
