@@ -24,21 +24,54 @@ exampleapp.run(function($ionicPlatform) {
 });
 
 exampleapp.config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-    .state('login', {
-        url: '/login',
-        templateUrl: 'templates/login.html',
+  $stateProvider
+
+  .state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('login', {
+    url: "/login",
+    // views: {
+      // 'menuContent': {
+        templateUrl: "templates/login.html",
         controller: 'LoginController'
+      // }
+    // }
+  })
+
+  .state('app.profile', {
+    url: "/profile",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/profile.html",
+        controller: 'ProfileController'
+      }
+    }
+  })
+    .state('app.todo', {
+      url: "/todo",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/todo.html",
+          controller: 'TodoController'
+        }
+      }
     })
-    .state('todo', {
-        url: '/todo',
-        templateUrl: 'templates/todo.html',
-        controller: 'TodoController'
-    });
-    $urlRouterProvider.otherwise('/login');
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/login');
 });
 
-exampleapp.controller("LoginController", function($scope, $firebaseAuth, $location) {
+exampleapp.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+  // Form data for the login modal
+
+});
+
+exampleapp.controller("LoginController", function($scope, $firebaseAuth, $location, $ionicPopup, $state) {
  
     $scope.login = function(username, password) {
       fb = new Firebase('https://prototype-firebase.firebaseio.com/');
@@ -47,9 +80,19 @@ exampleapp.controller("LoginController", function($scope, $firebaseAuth, $locati
             email: username,
             password: password
         }).then(function(authData) {
+            $state.go('app.profile');
             $location.path("/todo");
         }).catch(function(error) {
-            console.log("Login Failed!", error);
+            console.error("Login Failed!", error);
+            // $scope.showAlert = function() {
+            var alertPopup = $ionicPopup.alert({
+            title: 'Login Warning!',
+            template: error
+            });
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
+ // };
         });
     }
  
@@ -63,15 +106,22 @@ exampleapp.controller("LoginController", function($scope, $firebaseAuth, $locati
         }).then(function(authData) {
             $location.path("/todo");
         }).catch(function(error) {
-            console.error("ERROR " + error);
+            console.error("Registration Failed ", error);
+                        var alertPopup = $ionicPopup.alert({
+            title: 'Registration Warning!',
+            template: error
+            });
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
         });
     }
  
 });
 
-exampleapp.controller('TodoController', function($scope, $firebase, $firebaseAuth, $ionicPopup, $location) {
- 
-$scope.list = function() {
+exampleapp.controller('ProfileController', function($scope, $firebase, $firebaseAuth, $ionicPopup, $location){
+
+$scope.profileList = function() {
   fb = new Firebase('https://prototype-firebase.firebaseio.com/');
   fbAuth = fb.getAuth();
     // $firebaseAuth.$getAuth();
@@ -82,21 +132,83 @@ $scope.list = function() {
         var syncObject = sync.$asObject(["users", fbAuth.uid]);
         syncObject .$bindTo($scope, "data");
 
+        // var sync = $firebase(fb.child("messages/" + fbAuth.uid));
+        // var messagesArray = sync.$asArray(["users", fbAuth.uid]);
+        // $scope.messages = messagesArray;
+    }
+}
+});
+
+exampleapp.controller('TodoController', function($scope, $firebase, $firebaseAuth, $ionicModal, $location) {
+ 
+$scope.workoutList = function() {
+  fb = new Firebase('https://prototype-firebase.firebaseio.com/');
+  fbAuth = fb.getAuth();
+    // $firebaseAuth.$getAuth();
+    if(fbAuth) {
+      // fb = new Firebase('https://prototype-firebase.firebaseio.com/');
+        // var fbAuth = $firebaseAuth(fb);
+        // var sync = $firebase(fb.child("users/" + fbAuth.uid));
+        // var syncObject = sync.$asObject(["users", fbAuth.uid]);
+        // syncObject .$bindTo($scope, "data");
+
         var sync = $firebase(fb.child("messages/" + fbAuth.uid));
         var messagesArray = sync.$asArray(["users", fbAuth.uid]);
         $scope.messages = messagesArray;
     }
 }
- 
-$scope.create = function(text) {
-    $ionicPopup.prompt({
-        title: 'Enter a new TODO item',
-        inputType: 'text',
-        // inputType2: 'exer01'
-    })
-    .then(function(text) {
 
-        $scope.messages.$add({text:text});
+$ionicModal.fromTemplateUrl('templates/search.html', {
+  scope: $scope,
+  animation: 'slide-in-up'
+}).then(function (modal) {
+  $scope.modal = modal;
+});
+
+// function to open the modal
+$scope.openModal = function () {
+  $scope.modal.show();
+};
+
+// function to close the modal
+$scope.closeModal = function () {
+  $scope.modal.hide();
+};
+
+//Cleanup the modal when we're done with it!
+$scope.$on('$destroy', function () {
+  $scope.modal.remove();
+});
+ 
+$scope.create = function(exer, exer01) {
+    // $ionicPopup.show({
+    //   templateUrl: 'templates/search.html',
+    //   // title: 'Enter Wi-Fi Password',
+    //   scope: $scope,
+    //   title: 'Enter a new TODO item',
+    //   // inputType: 'text',
+    //   // inputType2: 'exer01'
+    //   buttons: [
+    //           { text: 'Cancel', onTap: function(e) { return true; } },
+    //           {
+    //             text: '<b>Save</b>',
+    //             type: 'button-positive',
+    //             onTap: function(e) {
+    //               return $scope.messages.exer;
+    //               return $scope.messages.exer01;
+    //             }
+    //           },
+    //         ]
+        
+    // })
+    // .then(function(exer, exer01) {
+
+        $scope.messages.$add({exer:exer, exer01:exer01});
+
+        // data.newItem = '';
+        exer = '';
+        exer01 = '';
+        $scope.closeModal();
         // if(result !== "") {
         //     if($scope.data.hasOwnProperty("messages/"+fbAuth.uid) !== true) { 
         //         $scope.data.messages = [];
@@ -105,7 +217,7 @@ $scope.create = function(text) {
         // } else {
         //     console.log("Action not completed");
         // }
-    });
+    // });
 }
 
 $scope.logout = function(){

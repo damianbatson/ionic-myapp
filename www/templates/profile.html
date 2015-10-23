@@ -1,15 +1,15 @@
-<ion-view title="Todo" ng-init="workoutList()">
+<ion-view title="Profile" ng-init="profileList()">
     <ion-nav-buttons side="right">
-        <button class="right button button-icon icon ion-plus" ng-click="openModal()"></button>
+        <button class="right button button-icon icon ion-plus" ng-click="create(text);text = null;"></button>
     <!-- </ion-nav-buttons> -->
         <!-- <ion-nav-buttons side="right"> -->
         <button class="right button button-icon icon ion-log-out" ng-click="logout()"></button>
     </ion-nav-buttons>
     <ion-content>
         <div class="padding-left padding-top padding-right">
-            <h1>Messages</h1>
+            <h1>Profile</h1>
         </div>
-<!--         <div class="padding-left padding-top padding-right">
+        <div class="padding-left padding-top padding-right">
         <label>
             <span>Name:</span>
             <input type="text" name="name" ng-model="data.name"/>
@@ -34,12 +34,12 @@
             <span>ExerciseOne:</span>
             <input type="text" name="name" ng-model="data.exone"/>
         </label>
-        </div> -->
-        <div class="list">
+        </div>
+<!--         <div class="list">
             <div ng-repeat="message in messages" class="item">
-                {{message.exer}}
+                {{message.text}}
                 {{message.exer01}}
             </div>
-        </div>
+        </div> -->
     </ion-content>
 </ion-view>
