@@ -1,0 +1,50 @@
+
+    <!-- <h1>Search</h1> -->
+            <!-- <div class="padding-left padding-top padding-right"> -->
+<ion-modal-view>
+    <ion-header-bar>
+            <h1>Profile</h1>
+    </ion-header-bar>
+        <!-- </div> -->
+        <ion-content>
+        <div class="padding-left padding-top padding-right">
+        <label>
+            <span>Name:</span>
+            <input type="text" name="name" ng-model="data.name"/>
+        </label>
+
+        <label>
+            <span>Email:</span>
+            <input type="text" name="name" ng-model="data.email"/>
+        </label>
+
+        <label>
+            <span>Weight:</span>
+            <input type="text" name="name" ng-model="exer"/>
+        </label>
+
+        <label>
+            <span>Cardio:</span>
+            <input type="text" name="name" ng-model="exer01"/>
+        </label>
+
+        <form ng-submit="create(exer, exer01)">
+            <div class="list">
+            <div class="list list-inset">
+            <label class="item item-input">
+            <input type="text" placeholder="exercise" ng-model="exer">
+            </label>
+            <label class="item item-input">
+            <!-- <span>Cardio:</span> -->
+            <input type="text" placeholder="exercise one" ng-model="exer01"/>
+            </label>
+            </div>
+            <button class="button button-block button-positive" type="submit">
+            Add Item
+            </button>
+            </div>
+        </form>
+
+        </div>
+    </ion-content>
+</ion-modal-view>

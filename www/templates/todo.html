@@ -1,0 +1,45 @@
+<ion-view title="Todo" ng-init="workoutList()">
+    <ion-nav-buttons side="right">
+        <button class="right button button-icon icon ion-plus" ng-click="openModal()"></button>
+    <!-- </ion-nav-buttons> -->
+        <!-- <ion-nav-buttons side="right"> -->
+        <button class="right button button-icon icon ion-log-out" ng-click="logout()"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="padding-left padding-top padding-right">
+            <h1>Messages</h1>
+        </div>
+<!--         <div class="padding-left padding-top padding-right">
+        <label>
+            <span>Name:</span>
+            <input type="text" name="name" ng-model="data.name"/>
+        </label>
+
+        <label>
+            <span>Email:</span>
+            <input type="text" name="name" ng-model="data.email"/>
+        </label>
+
+        <label>
+            <span>Weight:</span>
+            <input type="text" name="name" ng-model="data.weight"/>
+        </label>
+
+        <label>
+            <span>Cardio:</span>
+            <input type="text" name="name" ng-model="data.cardio"/>
+        </label>
+
+        <label>
+            <span>ExerciseOne:</span>
+            <input type="text" name="name" ng-model="data.exone"/>
+        </label>
+        </div> -->
+        <div class="list">
+            <div ng-repeat="message in messages" class="item">
+                {{message.exer}}
+                {{message.exer01}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
