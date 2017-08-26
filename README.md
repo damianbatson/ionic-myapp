@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Ionic App Base
-=====================
 
 A starting project for Ionic that optionally supports using custom SCSS.
 
@@ -36,5 +33,4 @@ user profiles use a unique identifier and the firebase $asObject.
 user training stats use a uid and the firebase $asArray.
 
 logins are handled by the firebase getAuth method.
->>>>>>> c8f8ae44ecd896a30709dc2d8a22866f5802299d
 
