@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Ionic App Base
 =====================
 
@@ -23,4 +24,17 @@ More info on this can be found on the Ionic [Getting Started](http://ionicframew
 
 ## Issues
 Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/submit-issue/) to the main Ionic repository.
+=======
+Ionic App of GymBuddy project
+=====================
+
+a port of the Laravel/MySQL webapp built in ionic and firebase.
+
+clients can upload content via a popup modal. content can include training statistics and vital statistics.
+
+user profiles use a unique identifier and the firebase $asObject.
+user training stats use a uid and the firebase $asArray.
+
+logins are handled by the firebase getAuth method.
+>>>>>>> c8f8ae44ecd896a30709dc2d8a22866f5802299d
 
