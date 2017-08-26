@@ -1,7 +1,7 @@
 ##Ionic App of GymBuddy project
 =====================
 
-a port of the Laravel/MySQL webapp built in ionic and firebase.
+###Laravel/MySQL webapp built in ionic and firebase.
 
 clients can upload content via a popup modal. content can include training statistics and vital statistics.
 
